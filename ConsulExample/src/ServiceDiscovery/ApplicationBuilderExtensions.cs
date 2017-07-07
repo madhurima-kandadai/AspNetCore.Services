@@ -62,7 +62,7 @@ namespace DataService
                         Status = HealthStatus.Passing,
                         DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),
                         Interval = TimeSpan.FromSeconds(5),
-                        HTTP = healthCheckUri
+                        HTTP = healthCheckUri,
                     });
 
                     logger.LogInformation($"Adding healthcheck for service {serviceId}, checking {healthCheckUri}.");
@@ -74,7 +74,8 @@ namespace DataService
                     Address = address.Host,
                     ID = serviceId,
                     Name = serviceOptions.Value.ServiceName,
-                    Port = address.Port
+                    Port = address.Port,
+                    Tags = new [] { $"urlprefix-{address.Host}:{"9999"}/{serviceOptions.Value.ServiceName.ToLower()}" }
                 };
 
                 consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();

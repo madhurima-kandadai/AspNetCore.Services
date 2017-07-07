@@ -8,8 +8,12 @@ namespace DataService.Controllers
     [Route("[controller]")]
     public class ValuesController : Controller
     {
-        private static Random Rnd = new Random();
-        private static readonly Dictionary<string, string> _values = new Dictionary<string, string>()
+        private Dictionary<string, string> _values;
+        [HttpGet("")]
+        public IActionResult Get()
+        {
+            Random Rnd = new Random();
+            _values = new Dictionary<string, string>()
         {
             {  "a", "Value " + Rnd.Next(10, 1000) },
             {  "b", "Value " + Rnd.Next(10, 1000) },
@@ -19,13 +23,9 @@ namespace DataService.Controllers
             {  "f", "Value " + Rnd.Next(10, 1000) },
             {  "g", "Value " + Rnd.Next(10, 1000) },
         };
-        
-        [HttpGet("")]
-        public IActionResult Get()
-        {
             return Json(_values);
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
@@ -36,7 +36,7 @@ namespace DataService.Controllers
 
             return NotFound();
         }
-        
+
         [HttpPost("{id}")]
         public bool Post(string id, [FromBody]string value)
         {
@@ -54,7 +54,7 @@ namespace DataService.Controllers
 
             return true;
         }
-        
+
         [HttpPut("{id}")]
         public IActionResult Put(string id, [FromBody]string value)
         {
@@ -68,10 +68,10 @@ namespace DataService.Controllers
                 _values[id] = value;
                 return Ok();
             }
-            
+
             return NotFound();
         }
-        
+
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {

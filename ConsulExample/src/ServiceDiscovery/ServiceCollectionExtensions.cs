@@ -43,7 +43,7 @@ namespace DataService
                 }
 
                 client.EnableAuditTrail = false;
-                client.UseCache = true;
+                client.UseCache = false;
                 client.MinimumCacheTimeout = TimeSpan.FromSeconds(1);
                 return client;
             });

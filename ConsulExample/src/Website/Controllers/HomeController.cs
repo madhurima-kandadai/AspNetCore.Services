@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using DnsClient;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +28,11 @@ namespace Website.Controllers
             {
                 var firstAddress = model.DnsResult.First().AddressList.FirstOrDefault();
                 var port = model.DnsResult.First().Port;
-
                 using (var client = new HttpClient())
                 {
                     model.ServiceResult = await client.GetStringAsync($"http://{firstAddress}:{port}/Values");
+                    model.Host = firstAddress.ToString();
+                    model.Port = port.ToString();
                 }
             }
 
@@ -48,5 +50,9 @@ namespace Website.Controllers
         public ServiceHostEntry[] DnsResult { get; set; }
 
         public string ServiceResult { get; set; }
+
+        public string Host { get; set; }
+
+        public string Port { get; set; }
     }
 }
