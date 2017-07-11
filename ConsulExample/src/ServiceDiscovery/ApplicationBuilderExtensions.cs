@@ -75,7 +75,7 @@ namespace DataService
                     ID = serviceId,
                     Name = serviceOptions.Value.ServiceName,
                     Port = address.Port,
-                    Tags = new [] { $"urlprefix-{address.Host}:{"9999"}/{serviceOptions.Value.ServiceName.ToLower()}" }
+                    Tags = new[] { $"urlprefix-{address.Host}:{"9999"}/{serviceOptions.Value.ServiceName.ToLower()}" }
                 };
 
                 consul.Agent.ServiceRegister(registration).GetAwaiter().GetResult();
