@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataService.Controllers
 {
-    [Route("[controller]")]
+    [Route("dataservice/[controller]")]
     public class ValuesController : Controller
     {
         private Dictionary<string, string> _values;
